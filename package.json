@@ -1,0 +1,64 @@
+{
+  "name": "comeon-javascript-test",
+  "version": "1.0.0",
+  "description": "![comeon-javascript-test-site](http://b5fa2dae67bf7ee0b0e5-e0d56d540e31d5f2f9430984d20d712d.r41.cf3.rackcdn.com/comeon-javascript-test_2.PNG) # comeon-javascript-test",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "build": "NODE_ENV=dev webpack -p --config webpack.dev.config.js --progress --colors",
+    "build:prod": "NODE_ENV='production' webpack -p --config webpack.prod.config.js --progress --colors",
+    "start": "webpack-dev-server --config webpack.dev.config.js --inline --history-api-fallback --port 8080 --progress --colors",
+    "start:prod": "webpack-dev-server --config webpack.prod.config.js --inline --history-api-fallback --port 8080--progress --colors"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blasterbug/comeon-javascript-test.git"
+  },
+  "contributors": [
+    {
+      "name": "ericwallinder"
+    },
+    {
+      "name": "kribblo"
+    },
+    {
+      "name": "blasterbug"
+    }
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blasterbug/comeon-javascript-test/issues"
+  },
+  "homepage": "https://github.com/blasterbug/comeon-javascript-test#readme",
+  "dependencies": {
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "react-router-redux": "^4.0.8",
+    "redux": "^3.7.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-generator": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.18",
+    "compression-webpack-plugin": "^1.1.6",
+    "css-loader": "^0.28.9",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^2.30.1",
+    "react-hot-loader": "^3.1.3",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.11.1"
+  }
+}
