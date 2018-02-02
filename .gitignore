@@ -1,2 +1,8 @@
 .idea
 *.iml
+node_modules
+artifacts
+apidoc
+dist/
+*.log
+.DS_Store
