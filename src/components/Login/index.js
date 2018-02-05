@@ -1,6 +1,10 @@
 'use strict'
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import { loginUser } from './../../store/actions/authActions';
 
 class Login extends Component {
 
@@ -17,29 +21,37 @@ class Login extends Component {
   }
 
   handleChange( event ) {
-    this.setState( { value: event.target.value } );
+    this.setState( { [event.target.name]: event.target.value } );
   }
 
   handleSubmit( event ) {
-    alert( 'A name was submitted: ' + this.state.value );
     event.preventDefault();
+    loginUser( this.state.username, this.state.password );
   }
 
   render() {
     return (
       <div className="login" style={{ display: 'block' }} >
         <div className="ui grid centered" >
-          <form onSubmit={this.handleSubmit} >
+          <form onSubmit={ this.handleSubmit } >
             <div className="fields" >
                 <div className="required field" >
                     <div className="ui icon input" >
-                      <input type="text" name="username" placeholder="Username" />
+                      <input
+                        name="username"
+                        onChange={ this.handleChange }
+                        placeholder="Username"
+                        type="text" />
                       <i className="user icon" ></i>
                     </div>
                 </div>
                 <div className="required field" >
                   <div className="ui icon input" >
-                    <input type="password" name="password" placeholder="Password" />
+                    <input
+                      name="password"
+                      onChange={ this.handleChange }
+                      placeholder="Password"
+                      type="password" />
                     <i className="lock icon" ></i>
                   </div>
                 </div>
