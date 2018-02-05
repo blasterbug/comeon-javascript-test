@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 import { loginUser } from './../../store/actions/authActions';
 
@@ -27,6 +28,12 @@ class Login extends Component {
   handleSubmit( event ) {
     event.preventDefault();
     loginUser( this.state.username, this.state.password );
+  }
+
+  componentWillUpdate( nextProps, nextState ) {
+    if ( nextProps.isAuthenticated ) {
+      browserHistory.push( '/casino' );
+    }
   }
 
   render() {
