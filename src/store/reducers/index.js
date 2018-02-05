@@ -4,11 +4,13 @@ import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
 import auth from './auth';
+import casino from './casino';
 
 // main reducers
 const combinedReducers = combineReducers({
   routing: routerReducer,
-  auth
+  auth,
+  casino
 });
 
 export const reducers = function(state, action) {

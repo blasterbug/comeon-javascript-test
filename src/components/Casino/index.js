@@ -4,14 +4,31 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import {
+  listCategories,
+  listGames
+} from './../../store/actions/casinoActions';
+
+import Category from './Category';
+import Game from './Game';
+
 class Casino extends Component {
 
-  constructor( props ){
+  constructor( props ) {
     super( props );
   }
 
+  componentDidMount() {
+    listCategories();
+    listGames();
+  }
+
   render() {
-    const { user } = this.props;
+    const {
+      categories,
+      games,
+      user
+    } = this.props;
     return (
       <div className="casino">
         <div className="ui grid centered">
@@ -44,34 +61,29 @@ class Casino extends Component {
             <div className="twelve wide column">
               <h3 className="ui dividing header">Games</h3>
               <div className="ui relaxed divided game items links">
-                <div className="game item">
-                  <div className="ui small image">
-                    <img src="" alt="game-icon" />
-                  </div>
-                  <div className="content">
-                    <div className="header"><b className="name"></b></div>
-                    <div className="description">
-                    </div>
-                    <div className="extra">
-                      <div className="play ui right floated secondary button inverted">
-                        Play
-                        <i className="right chevron icon"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                {
+                  games.map( game => {
+                    return <Game
+                      key={ game.code }
+                      categoryIds={ game.categoryIds }
+                      code={ game.code }
+                      description={ game.description }
+                      icon={ game.icon }
+                      name={ game.name } />
+                  })
+                }
               </div>
             </div>
             <div className="four wide column">
               <h3 className="ui dividing header">Categories</h3>
-
               <div className="ui selection animated list category items">
-
-                <div className="category item">
-                  <div className="content">
-                    <div className="header"></div>
-                  </div>
-                </div>
+                <div className="content">
+                {
+                  categories.map( category => {
+                    return <Category key={ category.id } id={ category.id } name={ category.name } />
+                  } )
+                }
+              </div>
               </div>
             </div>
           </div>
@@ -81,7 +93,22 @@ class Casino extends Component {
 }
 
 Casino.propTypes = {
+  categories: propTypes.arrayOf(
+    propTypes.shape({
+      id: propTypes.number,
+      name: propTypes.string
+    })
+  ).isRequired,
   errorMessage: propTypes.string.isRequired,
+  games: propTypes.arrayOf(
+    propTypes.shape({
+      categoryIds: propTypes.arrayOf(propTypes.number),
+      code: propTypes.string,
+      description: propTypes.string,
+      icon: propTypes.string,
+      name: propTypes.string
+    })
+  ).isRequired,
   isAuthenticated: propTypes.bool.isRequired,
   user: propTypes.shape({
     avatar: propTypes.string,
@@ -91,15 +118,19 @@ Casino.propTypes = {
 };
 
 Casino.defaultProps = {
+  categories: [],
   errorMessage: '',
+  games : [],
   infoMessage: '',
   isAuthenticated: false,
-  user: {}
+  user: {},
 };
 
 // should be in a container
 function mapStateToProps( state ) {
   return {
+    categories: state.casino.categories,
+    games: state.casino.games,
     isAuthenticated: state.auth.isAuthenticated,
     user: state.auth.user
   };

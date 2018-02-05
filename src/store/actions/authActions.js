@@ -74,9 +74,8 @@ export function logoutUser() {
       username: 'rebecka'
     }
   } )
-  .then( function( data ) {
-    store.dispatch( successLogout() );
-  } );
+  .done( successLogout() )
+  .fail( successLogout() ); // TODO: what to do when fail?
 }
 
 // Calls the API to get a token and
@@ -91,7 +90,7 @@ export function loginUser( username, password ) {
       password: password
     }
   } )
-  .then( function( data ) {
+  .done( function( data ) {
     switch ( data.status ) {
       case 'fail':
         store.dispatch( new ErrorLogin( data.error ) );
@@ -102,6 +101,9 @@ export function loginUser( username, password ) {
       default:
         store.dispatch( new ErrorLogin( 'Can\'t login' ) );
     }
+  })
+  .fail( function( error ) {
+    store.dispatch( new ErrorLogin( error.statusText ) );
   });
 
 }
