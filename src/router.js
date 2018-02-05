@@ -18,6 +18,7 @@ import asyncComponent from './components/AsyncComponent';
 const Home = asyncComponent( () => import( './components/Home') );
 const NotFound = asyncComponent( () => import( './components/NotFound') );
 const Login = asyncComponent( () => import( './components/Login') );
+const Casino = asyncComponent( () => import( './components/Casino') );
 
 // build the router
 const router = (
@@ -25,6 +26,7 @@ const router = (
     <Route path="/" component={ App } >
       <IndexRoute component={ Home } />
       <Route path="login" component={ Login } />
+      <Route path="casino" component={ Casino } />
       <Route path="*" component={ NotFound } />
     </Route>
   </Router>
