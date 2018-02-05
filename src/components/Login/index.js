@@ -82,7 +82,8 @@ Login.propTypes = {
   user: propTypes.shape({
     avatar: propTypes.string,
     event: propTypes.string,
-    name: propTypes.string
+    name: propTypes.string,
+    username: propTypes.string
   }).isRequired
 };
 
