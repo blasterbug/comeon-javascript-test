@@ -24,7 +24,7 @@ function asyncComponent( importComponent ) {
       else {
         return <div className="ui segment">
           <p></p>
-          <div class="ui active inverted dimmer">
+          <div className="ui active inverted dimmer">
             <div className="ui text loader">Loading</div>
           </div>
           <p></p>
