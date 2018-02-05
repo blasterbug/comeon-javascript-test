@@ -15,6 +15,7 @@ function RequestLogin() {
   return {
     type: LOGIN_REQUEST,
     payload: {
+      errorMessage: '',
       isFetching: true,
     }
   };
@@ -24,6 +25,7 @@ function SuccessLogin( user ) {
   return {
     type: LOGIN_SUCCESS,
     payload: {
+      errorMessage: '',
       isFetching: false,
       isAuthenticated: true,
       user
@@ -44,6 +46,7 @@ function requestLogout() {
   return {
     type: LOGOUT_REQUEST,
     payload: {
+      errorMessage: '',
       isFetching: true,
       isAuthenticated: true,
       user : {}

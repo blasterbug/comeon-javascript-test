@@ -1,7 +1,7 @@
 'use strict'
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { loginUser } from './../../store/actions/authActions';
@@ -69,4 +69,29 @@ class Login extends Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  errorMessage: propTypes.string.isRequired,
+  isAuthenticated: propTypes.bool.isRequired,
+  user: propTypes.shape({
+    avatar: propTypes.string,
+    event: propTypes.string,
+    name: propTypes.string
+  }).isRequired
+};
+
+Login.defaultProps = {
+  errorMessage: '',
+  isAuthenticated: false,
+  user: {}
+};
+
+// should be in a container
+function mapStateToProps( state ) {
+  return {
+    errorMessage: state.auth.errorMessage,
+    isAuthenticated: state.auth.isAuthenticated,
+    user: state.auth.user
+  };
+}
+
+export default connect( mapStateToProps )( Login );
