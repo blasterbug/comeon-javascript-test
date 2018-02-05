@@ -74,14 +74,10 @@ function ErrorCategories( errorMessage ) {
 
 // Calls the API to get a token and
 // dispatches actions along the way
-export function listGames( query ) {
+export function listGames() {
   store.dispatch( new RequestGames() );
   $.ajax( {
-    url: '/games',
-    type: 'POST',
-    data: {
-      categories: [2]
-    }
+    url: '/games'
   } )
   .done( function( games ) {
     store.dispatch( new SuccessGames( games ) );
@@ -94,8 +90,7 @@ export function listGames( query ) {
 export function listCategories() {
   store.dispatch( new RequestGames() );
   $.ajax( {
-    url: '/categories',
-    type: 'POST'
+    url: '/categories'
   } )
   .done( function( data  ) {
     store.dispatch( new SuccessCategories( data ) );
