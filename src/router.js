@@ -29,7 +29,7 @@ const router = (
       <Route path="login" component={ Login } />
       <Route path="casino">
         <IndexRoute component={ Casino } />
-        <Route path=":gamecode" component={ Game } />
+        <Route path=":game" component={ Game } />
       </Route>
       <Route path="*" component={ NotFound } />
     </Route>
