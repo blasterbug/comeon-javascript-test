@@ -51,7 +51,7 @@ function requestLogout() {
   };
 }
 
-function receiveLogout() {
+function successLogout() {
   return {
     type: LOGOUT_SUCCESS,
     payload: {
@@ -64,7 +64,16 @@ function receiveLogout() {
 // Logs the user out
 export function logoutUser() {
   store.dispatch( requestLogout() );
-  store.dispatch( receiveLogout() );
+  $.ajax( {
+    url: '/logout',
+    type: 'POST',
+    data: {
+      username: 'rebecka'
+    }
+  } )
+  .then( function( data ) {
+    store.dispatch( successLogout() );
+  } );
 }
 
 // Calls the API to get a token and
@@ -80,7 +89,6 @@ export function loginUser( username, password ) {
     }
   } )
   .then( function( data ) {
-    console.log( data);
     switch ( data.status ) {
       case 'fail':
         store.dispatch( new ErrorLogin( data.error ) );
