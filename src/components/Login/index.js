@@ -31,7 +31,7 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="login" style={{ display: 'block' }} >
+      <div className="login">
         <div className="ui grid centered" >
           <form onSubmit={ this.handleSubmit } >
             <div className="fields" >
