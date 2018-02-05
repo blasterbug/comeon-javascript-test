@@ -16,7 +16,7 @@ function RequestLogin() {
     type: LOGIN_REQUEST,
     payload: {
       errorMessage: '',
-      isFetching: true,
+      isFetching: true
     }
   };
 }
@@ -48,8 +48,7 @@ function requestLogout() {
     payload: {
       errorMessage: '',
       isFetching: true,
-      isAuthenticated: true,
-      user : {}
+      isAuthenticated: true
     }
   };
 }
@@ -64,14 +63,14 @@ function successLogout() {
   };
 }
 
-// Logs the user out
-export function logoutUser() {
+// Log the user out
+export function logoutUser( username ) {
   store.dispatch( requestLogout() );
   $.ajax( {
     url: '/logout',
     type: 'POST',
     data: {
-      username: 'rebecka'
+      username: username
     }
   } )
   .done( store.dispatch( new successLogout() ) )
@@ -96,7 +95,13 @@ export function loginUser( username, password ) {
         store.dispatch( new ErrorLogin( data.error ) );
         break;
       case 'success':
-        store.dispatch( new SuccessLogin( data.player ) );
+        const { player } = data;
+        store.dispatch( new SuccessLogin( {
+          avatar: player.avatar,
+          event: player.event,
+          name: player.name,
+          username
+        } ) );
         break;
       default:
         store.dispatch( new ErrorLogin( 'Can\'t login' ) );
