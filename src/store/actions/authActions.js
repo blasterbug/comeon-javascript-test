@@ -74,8 +74,8 @@ export function logoutUser() {
       username: 'rebecka'
     }
   } )
-  .done( successLogout() )
-  .fail( successLogout() ); // TODO: what to do when fail?
+  .done( store.dispatch( new successLogout() ) )
+  .fail( store.dispatch( new successLogout() ) ); // TODO: what to do when fail?
 }
 
 // Calls the API to get a token and
