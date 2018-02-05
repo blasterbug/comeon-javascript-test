@@ -20,18 +20,20 @@ class Casino extends Component {
   constructor( props ) {
     super( props );
     this.state = {
-      search: ''
+      searchQuery: '',
+      games: props.games,
+      category: 0
     };
+    this.logout = this.logout.bind( this );
     this.searchGame = this.searchGame.bind( this );
   }
 
   searchGame( event ) {
     this.setState({ [event.target.name]: event.target.value });
-    listGames( event.target.value );
   }
 
   logout( event ) {
-    logoutUser();
+    logoutUser( this.props.user.username );
   }
 
   componentDidMount() {
@@ -138,7 +140,8 @@ Casino.propTypes = {
   user: propTypes.shape({
     avatar: propTypes.string,
     event: propTypes.string,
-    name: propTypes.string
+    name: propTypes.string,
+    username: propTypes.string,
   }).isRequired
 };
 
