@@ -27,7 +27,8 @@ const router = (
     <Route path="/" component={ App } >
       <IndexRoute component={ Home } />
       <Route path="login" component={ Login } />
-      <Route path="casino" component={ Casino }>
+      <Route path="casino">
+        <IndexRoute component={ Casino } />
         <Route path=":gamecode" component={ Game } />
       </Route>
       <Route path="*" component={ NotFound } />

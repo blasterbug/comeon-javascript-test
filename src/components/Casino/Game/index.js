@@ -3,6 +3,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import classNames from 'classnames';
+import { Link } from 'react-router';
 
 function Game( props ) {
   return (
@@ -20,10 +21,10 @@ function Game( props ) {
           { props.description }
         </div>
         <div className="extra">
-          <div onClick={ props.onClick } className="play ui right floated secondary button inverted">
+          <Link to={ `/casino/${props.code}` } className="play ui right floated secondary button inverted">
             Play
             <i className="right chevron icon"></i>
-          </div>
+          </Link>
         </div>
       </div>
     </div>
@@ -36,10 +37,6 @@ Game.propTypes = {
   description: propTypes.string,
   icon: propTypes.string,
   name: propTypes.string
-};
-
-Game.defaultProps = {
-  onClick: null
 };
 
 export default Game;
