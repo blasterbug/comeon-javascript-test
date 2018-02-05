@@ -3,11 +3,14 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 import {
   listCategories,
   listGames
 } from './../../store/actions/casinoActions';
+
+import { logoutUser } from './../../store/actions/authActions';
 
 import Category from './Category';
 import Game from './Game';
@@ -16,11 +19,30 @@ class Casino extends Component {
 
   constructor( props ) {
     super( props );
+    this.state = {
+      search: ''
+    };
+    this.searchGame = this.searchGame.bind( this );
+  }
+
+  searchGame( event ) {
+    this.setState({ [event.target.name]: event.target.value });
+    listGames( event.target.value );
+  }
+
+  logout( event ) {
+    logoutUser();
   }
 
   componentDidMount() {
     listCategories();
     listGames();
+  }
+
+  componentWillUpdate( nextProps, nextState ) {
+    if ( !nextProps.isAuthenticated ) {
+      browserHistory.push( '/login' );
+    }
   }
 
   render() {
@@ -42,17 +64,20 @@ class Casino extends Component {
                       { user.name }
                     </b>
                   </div>
-                  <div className="description event"></div>
+                  <div className="description event">
+                    { user.event }
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="logout ui left floated secondary button inverted">
-              <i className="left chevron icon"></i>Log Out
+            <div onClick={ this.logout } className="logout ui left floated secondary button inverted">
+              <i className="left chevron icon"></i>
+              Log Out
               </div>
             </div>
             <div className="four wide column">
               <div className="search ui small icon input ">
-                <input type="text" placeholder="Search Game" />
+                <input onChange={ this.searchGame } type="text" placeholder="Search Game" />
                 <i className="search icon"></i>
               </div>
             </div>
