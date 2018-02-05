@@ -18,7 +18,19 @@ function asyncComponent( importComponent ) {
 
     render() {
       const Component = this.state.component;
-      return Component ? <Component { ...this.props } /> : null;
+      if ( Component ) {
+      return <Component { ...this.props } />
+      }
+      else {
+        return <div className="ui segment">
+          <p></p>
+          <div className="ui active dimmer">
+            <div className="ui text loader">Loading</div>
+          </div>
+          <p></p>
+          <p></p>
+        </div>
+      }
     }
   }
 
