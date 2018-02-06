@@ -6,11 +6,13 @@ import classNames from 'classnames';
 
 function Category( props ) {
   return (
-    <div onClick={ props.onClick } className="category item">
-      <div className="header">
-        {
-          props.selected ? <b>{ props.name }</b> : props.name
-        }
+    <div
+      className="category item selected"
+      onClick={ event => { props.onClick( props.id ) } } >
+      <div className="content" >
+        <div className="header" >
+          { props.name }
+        </div>
       </div>
     </div>
   );
