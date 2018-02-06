@@ -22,13 +22,11 @@ function asyncComponent( importComponent ) {
       return <Component { ...this.props } />
       }
       else {
-        return <div className="ui segment">
+        return <div className="ui segnment">
           <p></p>
           <div className="ui active inverted dimmer">
-            <div className="ui text loader">Loading</div>
+            <div className="ui loader"></div>
           </div>
-          <p></p>
-          <p></p>
         </div>
       }
     }
