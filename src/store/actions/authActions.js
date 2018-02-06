@@ -36,8 +36,8 @@ function SuccessLogin( user ) {
 function ErrorLogin( errorMessage ) {
   return {
     type: LOGIN_FAILURE,
-    isFetching: false,
     payload: {
+      isFetching: false,
       errorMessage
     }
   };
