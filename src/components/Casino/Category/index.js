@@ -7,7 +7,7 @@ import classNames from 'classnames';
 function Category( props ) {
   return (
     <div
-      className="category item selected"
+      className="category item"
       onClick={ event => { props.onClick( props.id ) } } >
       <div className="content" >
         <div className="header" >
