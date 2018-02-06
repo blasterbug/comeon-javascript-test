@@ -5,6 +5,7 @@ import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import {
   listCategories,
@@ -51,6 +52,7 @@ class Casino extends Component {
   selectCategory( categoryId ) {
     this.setState({
       category: categoryId,
+      searchQuery: '',
       games: _.filter( this.props.games, game => {
         return _.includes( game.categoryIds, categoryId )
       } )
@@ -106,8 +108,13 @@ class Casino extends Component {
               </div>
             </div>
             <div className="four wide column search" >
-              <div className="search ui small icon input" >
-                <input onChange={ this.searchGame } name="searchQuery" type="text" placeholder="Search Game" />
+              <div className={ classNames('ui small icon input', {error: (this.state.games.length < 1 && this.state.searchQuery.length>1)}) } >
+                <input
+                  name="searchQuery"
+                  onChange={ this.searchGame }
+                  placeholder="Search Game"
+                  type="text"
+                  value={ this.state.searchQuery } />
                 <i className="search icon" ></i>
               </div>
             </div>
@@ -177,7 +184,7 @@ Casino.propTypes = {
     avatar: propTypes.string,
     event: propTypes.string,
     name: propTypes.string,
-    username: propTypes.string.isRequired,
+    username: propTypes.string,
   }).isRequired
 };
 
