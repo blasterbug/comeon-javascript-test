@@ -102,63 +102,63 @@ class Casino extends Component {
                 </div>
               </div>
             </div>
-            <div onClick={ this.logout } className="logout ui left floated secondary button inverted" >
-              Log Out
+            <button className="small ui secondary right labeled icon button" onClick={ this.logout } >
               <i className="right sign out icon" ></i>
-              </div>
-            </div>
-            <div className="four wide column search" >
-              <div className={ classNames('ui small icon input', {error: (this.state.games.length < 1 && this.state.searchQuery.length>1)}) } >
-                <input
-                  name="searchQuery"
-                  onChange={ this.searchGame }
-                  placeholder="Search Game"
-                  type="text"
-                  value={ this.state.searchQuery } />
-                <i className="search icon" ></i>
-              </div>
-            </div>
+              Log Out
+            </button>
           </div>
-          <div className="ui grid" >
-            <div className="twelve wide column" >
-              <h3 className="ui dividing header" >Games</h3>
-              <div className="ui relaxed divided game items links" >
-                {
-                  // display loader while fetching
-                  this.props.isFetching ?
-                    <div className="ui active inverted dimmer">
-                      <div className="ui text loader">Loading</div>
-                    </div>
-                  : games.map( game => {
-                    return <Game
-                      key={ game.code }
-                      categoryIds={ game.categoryIds }
-                      code={ game.code }
-                      description={ game.description }
-                      icon={ game.icon }
-                      name={ game.name } />
-                  })
-                }
-              </div>
-            </div>
-            <div className="four wide column" >
-              <h3 className="ui dividing header" >Categories</h3>
-              <div className="ui selection animated list category items" >
-                {
-                  categories.map( category => {
-                    return <Category
-                      key={ category.id }
-                      id={ category.id }
-                      name={ category.name }
-                      onClick={ this.selectCategory } />
-                  } )
-                }
-              </div>
+          <div className="four wide column search" >
+            <div className={ classNames('ui small icon input', {error: (this.state.games.length < 1 && this.state.searchQuery.length>1)}) } >
+              <input
+                name="searchQuery"
+                onChange={ this.searchGame }
+                placeholder="Search Game"
+                type="text"
+                value={ this.state.searchQuery } />
+              <i className="search icon" ></i>
             </div>
           </div>
         </div>
-      );
-    }
+        <div className="ui grid" >
+          <div className="twelve wide column" >
+            <h3 className="ui dividing header" >Games</h3>
+            <div className="ui relaxed divided game items links" >
+              {
+                // display loader while fetching
+                this.props.isFetching ?
+                  <div className="ui active inverted dimmer">
+                    <div className="ui text loader">Loading</div>
+                  </div>
+                : games.map( game => {
+                  return <Game
+                    key={ game.code }
+                    categoryIds={ game.categoryIds }
+                    code={ game.code }
+                    description={ game.description }
+                    icon={ game.icon }
+                    name={ game.name } />
+                })
+              }
+            </div>
+          </div>
+          <div className="four wide column" >
+            <h3 className="ui dividing header" >Categories</h3>
+            <div className="ui selection animated list category items" >
+              {
+                categories.map( category => {
+                  return <Category
+                    key={ category.id }
+                    id={ category.id }
+                    name={ category.name }
+                    onClick={ this.selectCategory } />
+                } )
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 Casino.propTypes = {

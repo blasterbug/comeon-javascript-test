@@ -21,10 +21,12 @@ function Game( props ) {
           { props.description }
         </div>
         <div className="extra">
-          <Link to={ `/casino/${props.code}` } className="play ui right floated secondary button inverted">
-            Play
-            <i className="right chevron icon"></i>
-          </Link>
+          <div className="play ui right floated">
+            <Link to={ `/casino/${props.code}` } className="ui right labeled icon secondary button" >
+              Play
+              <i className="right chevron icon"></i>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

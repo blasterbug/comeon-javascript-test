@@ -79,10 +79,10 @@ class Login extends Component {
               </div>
             </div>
             <div className="field" >
-              <div className="ui icon input" >
-                <input type="submit" value="Login" />
+              <button className="fluid ui secondary right labeled icon button"  type="submit" >
                 <i className="right sign in icon" ></i>
-              </div>
+                Login
+              </button>
             </div>
           </form>
         </div>
