@@ -36,6 +36,7 @@ function SuccessGames( games ) {
 function ErrorGames( errorMessage ) {
   return {
     type: GAMES_FAILURE,
+    isFetching: false,
     payload: {
       errorMessage
     }
@@ -66,6 +67,7 @@ function SuccessCategories( categories ) {
 function ErrorCategories( errorMessage ) {
   return {
     type: CATEGORIES_FAILURE,
+    isFetching: false,
     payload: {
       errorMessage
     }

@@ -36,6 +36,7 @@ function SuccessLogin( user ) {
 function ErrorLogin( errorMessage ) {
   return {
     type: LOGIN_FAILURE,
+    isFetching: false,
     payload: {
       errorMessage
     }
@@ -58,6 +59,7 @@ function successLogout() {
     type: LOGOUT_SUCCESS,
     payload: {
       isAuthenticated: false,
+      isFetching: false,
       user: {}
     }
   };
