@@ -105,7 +105,7 @@ class Casino extends Component {
               <i className="right sign out icon" ></i>
               </div>
             </div>
-            <div className="four wide column" >
+            <div className="four wide column search" >
               <div className="search ui small icon input" >
                 <input onChange={ this.searchGame } name="searchQuery" type="text" placeholder="Search Game" />
                 <i className="search icon" ></i>
@@ -177,7 +177,7 @@ Casino.propTypes = {
     avatar: propTypes.string,
     event: propTypes.string,
     name: propTypes.string,
-    username: propTypes.string,
+    username: propTypes.string.isRequired,
   }).isRequired
 };
 
