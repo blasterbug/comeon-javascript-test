@@ -8,7 +8,8 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   LOGOUT_REQUEST,
-  LOGOUT_SUCCESS
+  LOGOUT_SUCCESS,
+  LOGOUT_FAILURE
 } from './authActionTypes';
 
 function RequestLogin() {
@@ -43,18 +44,17 @@ function ErrorLogin( errorMessage ) {
   };
 }
 
-function requestLogout() {
+function RequestLogout() {
   return {
     type: LOGOUT_REQUEST,
     payload: {
       errorMessage: '',
-      isFetching: true,
-      isAuthenticated: true
+      isFetching: true
     }
   };
 }
 
-function successLogout() {
+function SuccessLogout() {
   return {
     type: LOGOUT_SUCCESS,
     payload: {
@@ -65,9 +65,20 @@ function successLogout() {
   };
 }
 
+function ErrorLogout( errorMessage ) {
+  return {
+    type: LOGOUT_FAILURE,
+    payload: {
+      isAuthenticated: true,
+      isFetching: false,
+      errorMessage
+    }
+  };
+}
+
 // Log the user out
 export function logoutUser( username ) {
-  store.dispatch( requestLogout() );
+  store.dispatch( new RequestLogout() );
   $.ajax( {
     url: '/logout',
     type: 'POST',
@@ -75,8 +86,10 @@ export function logoutUser( username ) {
       username: username
     }
   } )
-  .done( store.dispatch( new successLogout() ) )
-  .fail( store.dispatch( new successLogout() ) ); // TODO: what to do when fail?
+  .done( store.dispatch( new SuccessLogout() ) )
+  .fail( function( error ) {
+    store.dispatch( new ErrorLogout( error.statusText ) );
+  });
 }
 
 // Calls the API to get a token and

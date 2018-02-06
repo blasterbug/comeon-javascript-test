@@ -5,7 +5,8 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   LOGOUT_REQUEST,
-  LOGOUT_SUCCESS
+  LOGOUT_SUCCESS,
+  LOGOUT_FAILURE
 } from './../actions/authActionTypes';
 
 function auth(
@@ -25,6 +26,8 @@ function auth(
     case LOGOUT_REQUEST:
       return Object.assign( {}, state, action.payload );
     case LOGOUT_SUCCESS:
+      return Object.assign( {}, state, action.payload );
+    case LOGOUT_FAILURE:
       return Object.assign( {}, state, action.payload );
     default:
       return state;
