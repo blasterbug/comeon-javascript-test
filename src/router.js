@@ -15,7 +15,6 @@ import App from './components/App';
 import asyncComponent from './components/AsyncComponent';
 
 // dynamically imported component
-const Home = asyncComponent( () => import( './components/Home') );
 const NotFound = asyncComponent( () => import( './components/NotFound') );
 const Login = asyncComponent( () => import( './components/Login') );
 const Casino = asyncComponent( () => import( './components/Casino') );
@@ -25,7 +24,7 @@ const Game = asyncComponent( () => import( './components/Game') );
 const router = (
   <Router history={ history } >
     <Route path="/" component={ App } >
-      <IndexRoute component={ Home } />
+      <IndexRoute component={ Login } />
       <Route path="login" component={ Login } />
       <Route path="casino">
         <IndexRoute component={ Casino } />
