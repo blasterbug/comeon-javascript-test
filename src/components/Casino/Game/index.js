@@ -7,16 +7,16 @@ import { Link } from 'react-router';
 
 function Game( props ) {
   return (
-    <div key={ props.code } className="game item">
+    <div className="game item">
       <div className="ui small image">
         <img src={ props.icon } alt="game-icon" />
       </div>
       <div className="content">
-        <div className="header">
+        <Link to={ `/casino/${props.code}` } className="header">
           <b className="name">
             { props.name }
           </b>
-        </div>
+        </Link>
         <div className="description">
           { props.description }
         </div>
