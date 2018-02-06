@@ -17,6 +17,7 @@ import { logoutUser } from './../../store/actions/authActions';
 import Category from './Category';
 import Game from './Game';
 
+// some of the logical should be put in a HOC
 class Casino extends Component {
 
   constructor( props ) {
@@ -35,6 +36,7 @@ class Casino extends Component {
     logoutUser( this.props.user.username );
   }
 
+  // filter all games, ignore selected category
   searchGame( event ) {
     const searchQuery = event.target.value;
     this.setState({
@@ -49,6 +51,7 @@ class Casino extends Component {
     } );
   }
 
+  // filter games by category
   selectCategory( categoryId ) {
     this.setState({
       category: categoryId,
@@ -59,21 +62,20 @@ class Casino extends Component {
     });
   }
 
-
+  // only fetch data when component actually displayed
   componentDidMount() {
     listCategories();
     listGames();
   }
 
-  componentWillReceiveProps( nextProps ) {
-    if ( !_.isEqual( nextProps.games, this.state.games ) ) {
-      this.setState({ games: nextProps.games });
-    }
-  }
-
+  // ensure user is logged in
   componentWillUpdate( nextProps, nextState ) {
     if ( !nextProps.isAuthenticated ) {
       browserHistory.push( '/login' );
+    }
+    // because it renders from state and not props, ensure state is in sync with props
+    if ( !_.isEqual( nextProps.games, this.state.games ) ) {
+      this.setState({ games: nextProps.games });
     }
   }
 
@@ -89,7 +91,10 @@ class Casino extends Component {
           <div className="twelve wide column" >
             <div className="ui list" >
               <div className="player item" >
-                <img className="ui avatar image" src={ user.avatar } alt="avatar" />
+                <img
+                  alt="avatar"
+                  className="ui avatar image"
+                  src={ user.avatar } />
                 <div className="content" >
                   <div className="header" >
                     <b className="name" >
@@ -108,7 +113,10 @@ class Casino extends Component {
             </button>
           </div>
           <div className="four wide column search" >
-            <div className={ classNames('ui small icon input', {error: (this.state.games.length < 1 && this.state.searchQuery.length>1)}) } >
+            <div className={ classNames(
+              'ui small icon input',
+              { error: (this.state.games.length < 1  && this.state.searchQuery.length>1) }
+            ) } >
               <input
                 name="searchQuery"
                 onChange={ this.searchGame }

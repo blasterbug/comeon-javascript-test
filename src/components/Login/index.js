@@ -20,15 +20,18 @@ class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind( this );
   }
 
+  // could be put in a HOC to be shared among components with inputs
   handleChange( event ) {
-    this.setState( { [event.target.name]: event.target.value } );
+    this.setState({ [event.target.name]: event.target.value });
   }
 
+  // login user
   handleSubmit( event ) {
     event.preventDefault();
     loginUser( this.state.username, this.state.password );
   }
 
+  // when user logged in, go tot casino
   componentWillUpdate( nextProps, nextState ) {
     if ( nextProps.isAuthenticated ) {
       browserHistory.push( '/casino' );
@@ -49,10 +52,10 @@ class Login extends Component {
           <form
             onSubmit={ this.handleSubmit }
             className={ classNames(
-                'ui form',
-                { loading: this.props.isFetching },
-                { error: this.props.errorMessage } )
-            } >
+              'ui form',
+              { loading: this.props.isFetching },
+              { error: this.props.errorMessage }
+            ) } >
             <div className="ui error message">
               <p>{ this.props.errorMessage }</p>
             </div>
@@ -62,8 +65,7 @@ class Login extends Component {
                     name="username"
                     onChange={ this.handleChange }
                     placeholder="Username"
-                    type="text"
-                    value={ this.state.username } />
+                    type="text" />
                   <i className="user icon" ></i>
                 </div>
             </div>
@@ -73,8 +75,7 @@ class Login extends Component {
                   name="password"
                   onChange={ this.handleChange }
                   placeholder="Password"
-                  type="password"
-                  value={ this.state.password } />
+                  type="password" />
                 <i className="lock icon" ></i>
               </div>
             </div>
