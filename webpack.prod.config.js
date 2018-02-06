@@ -58,30 +58,6 @@ module.exports = merge( config, {
         NODE_ENV: JSON.stringify('production')
       }
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      mangle: true,
-      uglifyOptions: {
-        comparisons: true,
-        compress: true,
-        conditionals: true,
-        dead_code: true,
-        evaluate: true,
-        ie8: false,
-        if_return: true,
-        join_vars: true,
-        sequences: true,
-        unused: true,
-        warnings: false
-      },
-      output: {
-        comments: false,
-        beautify: false
-      },
-      exclude: [
-        /\.min\.js$/gi, // skip pre-minified libs
-        /\.html/
-      ]
-    }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor'
     }),
@@ -90,7 +66,6 @@ module.exports = merge( config, {
       hashDigest: 'hex',
       hashDigestLength: 20
     }),
-    //new webpack.IgnorePlugin( /^\.\/locale$/, [ /moment$/, /react-intl$/ ] ),
     new webpack.NoEmitOnErrorsPlugin(),
     new CompressionPlugin({
       asset: '[path].gz[query]',
