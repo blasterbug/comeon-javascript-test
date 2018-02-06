@@ -12,7 +12,7 @@ import {
 function auth(
   state = {
     isFetching: false,
-    isAuthenticated: localStorage.getItem( 'token' ) ? true : false,
+    isAuthenticated: false,
     errorMessage: ''
   },
   action ) {
