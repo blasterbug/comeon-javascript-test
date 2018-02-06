@@ -50,6 +50,12 @@ module.exports = merge( config, {
   },
   // devtool: 'cheap-module-source-map',
   devtool: 'inline-source-map',
+  devServer: {
+    contentBase:  path.resolve( __dirname, 'dist' ),
+    clientLogLevel: 'info',
+    historyApiFallback: true,
+    hot: true
+  },
   plugins: [
     extractSass,
     new webpack.DefinePlugin({

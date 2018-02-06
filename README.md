@@ -11,3 +11,5 @@ This is my solution for [comeon-javascript-test](https://github.com/comeon-stock
   $ npm i
   $ npm start
 ```
+
+and visit [localhost:8080](http://localhost:8080)
