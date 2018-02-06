@@ -101,8 +101,8 @@ class Casino extends Component {
               </div>
             </div>
             <div onClick={ this.logout } className="logout ui left floated secondary button inverted" >
-              <i className="left chevron icon" ></i>
               Log Out
+              <i className="right sign out icon" ></i>
               </div>
             </div>
             <div className="four wide column" >
