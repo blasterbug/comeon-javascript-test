@@ -43,17 +43,7 @@ module.exports = merge( config, {
     contentBase:  path.resolve( __dirname, 'dist' ),
     clientLogLevel: 'info',
     historyApiFallback: true,
-    hot: true,
-    //https://webpack.js.org/configuration/dev-server/#devserver-disablehostcheck
-    //disableHostCheck: true,
-    proxy: [{
-      context: '/api',
-      target: {
-        host: process.env.LOOGUP_API_HOST || 'localhost',
-        port: process.env.LOOGUP_API_PORT ||  7000
-      },
-      pathRewrite: { '^/api/' : '/' }
-    }]
+    hot: true
   },
   plugins: [
     new webpack.NamedModulesPlugin(),

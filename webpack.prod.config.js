@@ -6,7 +6,6 @@ const merge = require( 'webpack-merge' );
 const config = require( './webpack.config.js' );
 const CompressionPlugin = require( 'compression-webpack-plugin' );
 const ExtractTextPlugin = require( 'extract-text-webpack-plugin' );
-const FaviconsWebpackPlugin = require( 'favicons-webpack-plugin' );
 
 const extractSass = new ExtractTextPlugin({
     filename: '[name].[contenthash].css',
@@ -51,22 +50,6 @@ module.exports = merge( config, {
   },
   // devtool: 'cheap-module-source-map',
   devtool: 'inline-source-map',
-  devServer: {
-    compress: true,
-    clientLogLevel: 'error',
-    historyApiFallback: true,
-    contentBase: path.resolve( __dirname, 'public' ),
-    //https://webpack.js.org/configuration/dev-server/#devserver-disablehostcheck
-    //disableHostCheck: true,
-    proxy: [{ // should be useless in prodmode
-      context: '/api',
-      target: {
-        host: process.env.LOOGUP_API_HOST || 'localhost',
-        port: process.env.LOOGUP_API_PORT ||  7000
-      },
-      pathRewrite: { '^/api/' : '/' }
-    }]
-  },
   plugins: [
     extractSass,
     new webpack.DefinePlugin({
@@ -75,29 +58,11 @@ module.exports = merge( config, {
         NODE_ENV: JSON.stringify('production')
       }
     }),
-    new FaviconsWebpackPlugin({
-      logo: path.resolve( __dirname, 'public/favicon.jpg') ,
-      prefix: 'icons/',
-      inject: true,
-      background: '#fc1683',
-      title: 'loogup',
-      icons: {
-        android: true,
-        appleIcon: true,
-        appleStartup: true,
-        coast: false,
-        favicons: true,
-        firefox: true,
-        opengraph: false,
-        twitter: true,
-        yandex: false,
-        windows: false
-      }
-    }),
     new webpack.optimize.UglifyJsPlugin({
       mangle: true,
       uglifyOptions: {
         comparisons: true,
+        compress: true,
         conditionals: true,
         dead_code: true,
         evaluate: true,
@@ -112,7 +77,10 @@ module.exports = merge( config, {
         comments: false,
         beautify: false
       },
-      exclude: [ /\.min\.js$/gi ] // skip pre-minified libs
+      exclude: [
+        /\.min\.js$/gi, // skip pre-minified libs
+        /\.html/
+      ]
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor'
@@ -127,7 +95,7 @@ module.exports = merge( config, {
     new CompressionPlugin({
       asset: '[path].gz[query]',
       algorithm: 'gzip',
-      test: /\.js$|\.css$|\.html$/,
+      test: /\.js$|\.css$/,
       threshold: 10240,
       minRatio: 0
     })
