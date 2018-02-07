@@ -94,7 +94,7 @@ class Casino extends Component {
       this.setState({ games: nextProps.games });
     }
     // when search is being erase, displayed the whole list of games
-    if ( nextState.searchQuery.length < 1 && this.state.searchQuery.length > 1 ) {
+    if ( nextState.searchQuery.length < 1 && this.state.searchQuery.length > 0 ) {
       this.setState({ games: nextProps.games });
     }
   }
