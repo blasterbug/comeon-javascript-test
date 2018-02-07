@@ -36,19 +36,35 @@ class Casino extends Component {
     logoutUser( this.props.user.username );
   }
 
+  // perfrom actual search within games
+  filterGames( searchQuery, games ) {
+    let filteredGames = [];
+    // look at games names
+    filteredGames = _.filter( games, game => {
+      return new RegExp( searchQuery, 'i' ).test( game.name );
+    });
+    // if no hit, look into games description
+    if ( filteredGames.length < 1 ) {
+      filteredGames = _.filter( games, game => {
+        return new RegExp( `${searchQuery}{1,}`, 'i' ).test( game.description );
+      });
+    }
+    return filteredGames;
+  }
+
   // filter all games, ignore selected category
   searchGame( event ) {
     const searchQuery = event.target.value;
-    this.setState({
-      searchQuery,
-      // use this.state.games to filtered displayed games. i.e. filtered by categories
-      games: _.filter( this.props.games, game => {
-        return (
-          game.name.toLowerCase().indexOf( searchQuery.toLowerCase() ) >= 0
-        || game.description.toLowerCase().indexOf( searchQuery.toLowerCase() ) >= 0
-        );
-      })
-    } );
+    if ( searchQuery.length > 0) {
+      this.setState({
+        searchQuery,
+        // use this.state.games to filtered displayed games. i.e. filtered by categories
+        games: this.filterGames( searchQuery, this.props.games )
+      });
+    }
+    else {
+      this.setState({ searchQuery });
+    }
   }
 
   // filter games by category
@@ -74,7 +90,11 @@ class Casino extends Component {
       browserHistory.push( '/login' );
     }
     // because it renders from state and not props, ensure state is in sync with props
-    if ( !_.isEqual( nextProps.games, this.state.games ) ) {
+    if ( !_.isEqual( nextProps.games, this.props.games ) ) {
+      this.setState({ games: nextProps.games });
+    }
+    // when search is being erase, displayed the whole list of games
+    if ( nextState.searchQuery.length < 1 && this.state.searchQuery.length > 1 ) {
       this.setState({ games: nextProps.games });
     }
   }
