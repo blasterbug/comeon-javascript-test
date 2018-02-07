@@ -58,6 +58,7 @@ class Casino extends Component {
     if ( searchQuery.length > 0) {
       this.setState({
         searchQuery,
+        category: 0,
         // use this.state.games to filtered displayed games. i.e. filtered by categories
         games: this.searchGames( searchQuery, this.props.games )
       });
@@ -71,10 +72,7 @@ class Casino extends Component {
   selectCategory( categoryId ) {
     this.setState({
       category: categoryId,
-      searchQuery: '',
-      games: _.filter( this.props.games, game => {
-        return _.includes( game.categoryIds, categoryId )
-      } )
+      searchQuery: ''
     });
   }
 
@@ -96,6 +94,14 @@ class Casino extends Component {
     // when search is being erase, displayed the whole list of games
     if ( nextState.searchQuery.length < 1 && this.state.searchQuery.length > 0 ) {
       this.setState({ games: nextProps.games });
+    }
+    // only filter games list when category changed
+    if ( nextState.category !== this.state.category ) {
+      this.setState({
+        games: _.filter( this.props.games, game => {
+          return _.includes( game.categoryIds, nextState.category )
+        })
+      });
     }
   }
 
