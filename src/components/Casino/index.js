@@ -28,7 +28,7 @@ class Casino extends Component {
       category: 0 // ALL
     };
     this.logout = this.logout.bind( this );
-    this.searchGame = this.searchGame.bind( this );
+    this.handleSearchInput = this.handleSearchInput.bind( this );
     this.selectCategory = this.selectCategory.bind( this );
   }
 
@@ -37,7 +37,7 @@ class Casino extends Component {
   }
 
   // perfrom actual search within games
-  filterGames( searchQuery, games ) {
+  searchGames( searchQuery, games ) {
     let filteredGames = [];
     // look at games names
     filteredGames = _.filter( games, game => {
@@ -53,13 +53,13 @@ class Casino extends Component {
   }
 
   // filter all games, ignore selected category
-  searchGame( event ) {
+  handleSearchInput( event ) {
     const searchQuery = event.target.value;
     if ( searchQuery.length > 0) {
       this.setState({
         searchQuery,
         // use this.state.games to filtered displayed games. i.e. filtered by categories
-        games: this.filterGames( searchQuery, this.props.games )
+        games: this.searchGames( searchQuery, this.props.games )
       });
     }
     else {
@@ -139,7 +139,7 @@ class Casino extends Component {
             ) } >
               <input
                 name="searchQuery"
-                onChange={ this.searchGame }
+                onChange={ this.handleSearchInput }
                 placeholder="Search Game"
                 type="text"
                 value={ this.state.searchQuery } />
