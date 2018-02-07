@@ -38,6 +38,7 @@ class Casino extends Component {
 
   // perfrom actual search within games
   searchGames( searchQuery, games ) {
+    // could use clever regex maybe?
     let filteredGames = [];
     // look at games names
     filteredGames = _.filter( games, game => {
